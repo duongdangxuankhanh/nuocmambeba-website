@@ -12,6 +12,9 @@ jobs:
       contents: write
       pages: write
       id-token: write
+    defaults:
+      run:
+        working-directory: ./bakery
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -36,7 +39,7 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages # The branch the action should deploy to.
-          folder: build # The folder the action should deploy.
+          folder: bakery/build # The folder the action should deploy.
           clean: true
           # Prefer a user-provided Personal Access Token if set (useful when GITHUB_TOKEN lacks push permission)
           token: ${{ secrets.GH_PAGES_DEPLOY_TOKEN || secrets.GITHUB_TOKEN }}
