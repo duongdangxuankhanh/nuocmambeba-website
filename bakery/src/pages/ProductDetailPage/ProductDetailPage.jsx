@@ -14,6 +14,7 @@ import { addCart } from '../../services/cartService';
 import { resolveCakeImageSrc } from '../../utils/image';
 
 const ProductDetailPage = () => {
+  // eslint-disable-next-line no-unused-vars
   const [choicePiece,setChoicePiece] = useState([false,false])
   const [productDetai,setProductDetai] = useState({})
   const [toasts, setToasts] = useState([]);
@@ -22,6 +23,7 @@ const ProductDetailPage = () => {
   const useId = useSelector(state => state.user.id)
   const dispatch = useDispatch()
   const symbol = ">"
+  // eslint-disable-next-line no-unused-vars
   const updatePiece = (index) => {
     setChoicePiece(prev =>
       prev.map((_, idx) => idx === index) 
