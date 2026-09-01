@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { useSearchParams } from 'react-router'
 import ButtonComponent from '../../Components/ButtonComponent'
 import CartProductComponent from '../../Components/CartProductComponent/CartProductComponent'
 import { useDispatch } from 'react-redux'
@@ -10,20 +11,20 @@ const featuredProducts = [
   {
     id: 'home-fish-sauce-1',
     img: 'sp1.png',
-    nameProduct: 'Nước mắm cá cơm 1000ml',
-    price: 129000,
+    nameProduct: 'Nước mắm cá cơm 500ml',
+    price: 60000,
   },
   {
     id: 'home-fish-sauce-2',
     img: 'sp2.png',
     nameProduct: 'Nước mắm cá cơm 500ml',
-    price: 169000,
+    price: 70000,
   },
   {
     id: 'home-fish-sauce-3',
     img: 'sp2.png',
     nameProduct: 'Nước mắm cá cơm 1000ml',
-    price: 99000,
+    price: 120000,
   },
 ]
 
@@ -31,7 +32,7 @@ const trustHighlights = [
   {
     title: 'Độ đạm rõ vị',
     description:
-      'Nhiều lựa chọn 25N, 35N, 40N phù hợp cho nấu, chấm và ướp.',
+      'Độ đạm phù hợp cho nấu, chấm và ướp.',
   },
   {
     title: 'Nguyên liệu sạch',
@@ -52,7 +53,15 @@ const trustHighlights = [
 
 const HomePage = () => {
   const [toasts, setToasts] = useState([])
+  const [searchParams] = useSearchParams()
   const dispatch = useDispatch()
+  const searchQuery = searchParams.get('search') || ''
+  
+  const filteredProducts = searchQuery 
+    ? featuredProducts.filter(p => 
+        p.nameProduct.toLowerCase().includes(searchQuery.toLowerCase())
+      )
+    : featuredProducts
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search)
@@ -151,14 +160,22 @@ const HomePage = () => {
           </div>
 
           <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-            {featuredProducts.map((p) => (
-              <div
-                key={p.id}
-                className="rounded-3xl bg-white p-4 shadow hover:shadow-xl transition"
-              >
-                <CartProductComponent {...p} setToasts={setToasts} />
+            {filteredProducts.length > 0 ? (
+              filteredProducts.map((p) => (
+                <div
+                  key={p.id}
+                  className="rounded-3xl bg-white p-4 shadow hover:shadow-xl transition"
+                >
+                  <CartProductComponent {...p} setToasts={setToasts} />
+                </div>
+              ))
+            ) : (
+              <div className="col-span-full text-center py-12">
+                <p className="text-gray-500 text-lg">
+                  {searchQuery ? `Không tìm thấy sản phẩm: "${searchQuery}"` : 'Không có sản phẩm'}
+                </p>
               </div>
-            ))}
+            )}
           </div>
         </section>
 
@@ -210,7 +227,7 @@ const HomePage = () => {
 
               <div className="flex justify-center">
                 <img
-                  src="/assest/banner/bottle.png"
+                  src="/assest/cake/sp2.png"
                   alt="bottle"
                   className="w-64 lg:w-96 object-contain rounded-xl shadow-lg bg-white p-6"
                 />

@@ -1,91 +1,56 @@
-import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router'
-import CartProductComponent from '../../Components/CartProductComponent/CartProductComponent'
-import { getAllProduct } from '../../services/productService';
+import React, { useState } from 'react'
 import ToastComponent from '../../Components/ToastComponent';
 
-const fallbackProducts = Array.from({ length: 12 }, (_, index) => ({
-  _id: `fallback-${index + 1}`,
-  image: `sp${index + 1}.webp`,
-  name: `Nước mắm cá cơm ${index + 1}`,
-  price: 50000 + index * 5000,
-  isFallback: true,
-}));
-
 const ProductPage = () => {
-  const [products, setProducts] = useState([]);
   const [toasts, setToasts] = useState([]);
-  const symbol = ">"
-  const fectProduct = async () => {
-    try {
-      const response = await getAllProduct()
-      const productList = Array.isArray(response?.data)
-        ? response.data
-        : Array.isArray(response)
-          ? response
-          : []
-
-      if (productList.length === 0) {
-        setProducts(fallbackProducts)
-        return
-      }
-
-      setProducts(productList)
-    } catch (error) {
-      setProducts(fallbackProducts)
-    }
-  }
-    useEffect(() => {
-      fectProduct()
-    }, []);
   return (
     <div>
       <ToastComponent toasts={toasts} setToasts={setToasts}/>
-      <div className='flex justify-center items-center'>
-        <Link className='text-[11px] text-[#c4c4c4] mr-2' to ="/home">
-          Trang chủ 
-        </Link>
-        {symbol}
-        <Link className='text-[11px] ml-2'>
-          Giới thiệu
-        </Link>
-      </div>
-      <div className='text-center mb-28'>
-        <h1 className='text-[40px]'>
-          Về Nước Mắm Truyền Thống
-        </h1>
-        <div className='my-6'>
-          <img src="/assest/banner/bottle.png" alt="nước mắm" className='mx-auto w-48' />
+      <section className="relative w-screen left-1/2 -translate-x-1/2 min-h-[400px] md:min-h-[500px] overflow-hidden text-white z-0">
+        <img loading="lazy" decoding="async" src="/assest/banner/aboutt.png" alt="nước mắm truyền thống" className='absolute inset-0 w-full h-full object-cover' />
+        <div className='absolute inset-0 bg-black/45' />
+        <div className='relative z-50 flex flex-col items-center justify-center h-full py-12 sm:py-20'>
+          <h1 className='text-4xl sm:text-5xl md:text-6xl font-semibold text-center mb-6 px-4 max-w-4xl text-white'>
+            Về Nước Mắm Truyền Thống
+          </h1>
+          <p className='text-base sm:text-lg text-center text-white/90 max-w-2xl px-6'>
+            Nước mắm cá cơm - hương vị đặc trưng của ẩm thực Việt Nam được ủ chượp tự nhiên theo công thức truyền thống.<br></br>
+            {/* <span className='font-semibold cursor-pointer hover:text-white'>Khám phá thêm</span> */}
+          </p>
         </div>
-        <p className='text-sm'>Nước mắm cá cơm - hương vị đặc trưng của ẩm thực Việt Nam được ủ chượp tự nhiên theo công thức truyền thống. <b className='underline'>Khám phá thêm</b></p>
-      </div>
-      <div className='mx-auto max-w-7xl px-6'>
-        <div className='grid lg:grid-cols-2 gap-10 items-center mb-20'>
-          <div>
-            <h3 className='text-3xl font-semibold mb-6'>Câu Chuyện Về Nước Mắm</h3>
-            <p className='text-gray-600 leading-7 mb-4'>
-              Nước mắm là hồn của ẩm thực Việt Nam. Với hơn trăm năm lịch sử, nước mắm cá cơm được yêu thích bởi hương vị đậm đà, 
-              hậu ngọt thanh thoáng và mùi thơm lịch sự. Mỗi giọt nước mắm là kết quả của quá trình ủ chượp lâu dài, 
-              kỹ lưỡng từ cá cơm tươi và muối biển tinh khiết.
-            </p>
-            <p className='text-gray-600 leading-7'>
-              Chúng tôi tin rằng nước mắm chất lượng cao là nền tảng của những món ăn ngon. 
-              Vì vậy, chúng tôi cam kết mang đến cho bạn những sản phẩm nước mắm truyền thống, 
-              được chế biến từ những nguyên liệu tốt nhất và qua quy trình kiểm định kỹ lưỡng.
-            </p>
-          </div>
-          <div className='flex justify-center'>
-            <img src="/assest/banner/bottle.png" alt="nước mắm truyền thống" className='w-64' />
+      </section>
+      <div className='mx-auto max-w-7xl px-6 py-16 sm:py-20'>
+        <div className='mb-20'>
+          <h3 className='text-3xl font-semibold mb-6'>CÂU CHUYỆN VỀ NƯỚC MẮM</h3>
+          <div className='grid grid-cols-1 lg:grid-cols-2 gap-10 items-start'>
+            <div className='order-2 lg:order-1'>
+              <p className='text-gray-600 leading-7 mb-4'>
+                Từ những mẻ cá cơm tươi được đánh bắt từ biển, kết hợp cùng muối biển và ủ chượp theo phương pháp truyền thống, nước mắm được hình thành qua một quá trình tự nhiên đòi hỏi sự kiên nhẫn và chăm chút.
+              </p>
+              <p className='text-gray-600 leading-7 mb-4'>
+                Mỗi mẻ mắm là sự kết hợp giữa nguyên liệu tự nhiên, thời gian và kinh nghiệm được truyền lại qua nhiều thế hệ.
+              </p>
+              <p className='text-gray-600 leading-7 mb-4'>
+                Với chúng tôi, làm nước mắm không đơn thuần là tạo ra một loại gia vị. Đó còn là cách gìn giữ một nghề truyền thống, gìn giữ hương vị quê hương và những giá trị đã gắn bó với bao thế hệ người Việt.
+              </p>
+            </div>
+            <video
+              src="/assest/banner/video6.mp4"
+              autoPlay
+              muted
+              loop
+              className="rounded-2xl shadow-lg w-full h-auto max-h-[420px] object-cover order-1 lg:order-2"
+            />
           </div>
         </div>
 
         <div className='mb-20'>
-          <h3 className='text-3xl font-semibold mb-6 text-center'>Đặc Điểm Nước Mắm Cá Cơm</h3>
+          <h3 className='text-3xl font-semibold mb-6 text-center'>ĐẶC ĐIỂM NƯỚC MẮM CÁ CƠM</h3>
           <div className='grid md:grid-cols-2 lg:grid-cols-3 gap-6'>
             <div className='p-6 text-center'>
               <h4 className='font-semibold text-lg mb-3'>Độ Đạm Rõ Vị</h4>
               <p className='text-sm text-gray-600'>
-                Có nhiều lựa chọn từ 25N, 35N, 40N phù hợp cho nấu, chấm và ướp theo nhu cầu từng món ăn.
+                Độ đạm phù hợp cho nấu, chấm và ướp theo nhu cầu từng món ăn.
               </p>
             </div>
             <div className='p-6 text-center'>
@@ -104,7 +69,7 @@ const ProductPage = () => {
         </div>
 
         <div className='mb-20'>
-          <h3 className='text-3xl font-semibold mb-6 text-center'>Quy Trình Sản Xuất</h3>
+          <h3 className='text-3xl font-semibold mb-6 text-center'>QUY TRÌNH SẢN XUẤT</h3>
           <p className='text-gray-600 leading-7 mb-4 text-center'>
             Mỗi chai nước mắm đều trải qua quy trình chế biến kỳ công từ đầu vào cho đến khi đóng chai:
           </p>
@@ -134,45 +99,21 @@ const ProductPage = () => {
         </div>
 
         <div className='text-center mb-20'>
-          <h3 className='text-3xl font-semibold mb-6'>Tại Sao Chọn Nước Mắm Của Chúng Tôi?</h3>
+          <h3 className='text-3xl font-semibold mb-6'>TẠI SAO CHỌN NƯỚC MẮM CỦA CHÚNG TÔI</h3>
           <div className='text-gray-600 leading-7 space-y-4 max-w-3xl mx-auto'>
             <p>
-              Chúng tôi là những người yêu thích nước mắm truyền thống và cam kết mang đến cho bạn 
-              những sản phẩm tốt nhất. Mỗi chai nước mắm được sản xuất với tình yêu và kỹ lưỡng.
+              Hơn một thế kỷ qua, nghề làm nước mắm tại Đề Gi vẫn được gìn giữ qua từng thế hệ.
             </p>
             <p>
-              Nước mắm của chúng tôi không chỉ là một gia vị, mà còn là linh hồn của ẩm thực Việt Nam. 
-              Từ những bữa cơm gia đình thường ngày đến những bữa tiệc lớn, nước mắm của chúng tôi 
-              luôn là người bạn đáng tin cậy giúp tăng thêm hương vị cho các món ăn.
+              Chúng tôi tin rằng giá trị của nước mắm truyền thống không chỉ nằm trong một chai mắm, mà còn nằm ở câu chuyện, thời gian và tâm huyết của những người làm nghề.
             </p>
             <p>
-              Dù bạn là đầu bếp chuyên nghiệp hay chỉ là một người thích nấu ăn, 
-              nước mắm truyền thống của chúng tôi sẽ không làm bạn thất vọng. 
-              Hãy để chúng tôi đem đến cho bạn những giọt nước mắm chất lượng cao 
-              và khiến mỗi bữa ăn của bạn trở nên đặc biệt hơn.
+              Từ một vùng biển quê hương, Nước mắm Đề Gi – Bé Ba mong muốn mang đến những giọt mắm đậm đà, chân thật và giữ được nét đặc trưng của hương vị truyền thống Việt Nam.
             </p>
           </div>
         </div>
       </div>
-      {/* Products listing */}
-      <section className='mx-auto max-w-7xl px-6 my-16'>
-        <h3 className='text-3xl font-semibold mb-6 text-center'>Sản phẩm</h3>
-        <div className='grid gap-6 md:grid-cols-2 xl:grid-cols-3'>
-          {(products || []).map((p) => {
-            const props = {
-              img: p.img || p.image || p.mainImage || p.thumbnail || '',
-              nameProduct: p.nameProduct || p.name || p.title || '',
-              price: p.price || p.cost || 0,
-              id: p._id || p.id || p.sku || undefined,
-            }
-            return (
-              <div key={props.id || Math.random()} className='rounded-3xl bg-white p-4 shadow hover:shadow-xl transition'>
-                <CartProductComponent {...props} setToasts={setToasts} />
-              </div>
-            )
-          })}
-        </div>
-      </section>
+
     </div>
   )
 }

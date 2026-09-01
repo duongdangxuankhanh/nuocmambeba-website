@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import {  Dropdown, Navbar } from "flowbite-react";
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import ModalsLoginComponent from './Modals/ModalsLoginComponent';
 import ModalsCreateComponent from './Modals/ModalsCreateComponent';
 import { useSelector } from 'react-redux'
@@ -12,8 +12,10 @@ const HeaderComponents = () => {
   const [isSignIn, setIsSignIn] = useState(false)
   const [isCreate, setIsCreate] = useState(false)
   const [toasts, setToasts] = useState([]);
+  const [searchQuery, setSearchQuery] = useState('')
   const quantity = useSelector(state => state.cart.quantity)
   const user = useSelector(state => state.user.userName)
+  const navigate = useNavigate()
   const swapModal = () =>{
     setIsCreate(isSignIn)
     setIsSignIn(isCreate)
@@ -30,6 +32,12 @@ const HeaderComponents = () => {
     localStorage.removeItem("token")
     localStorage.removeItem("user")
     window.location.href="/"
+  }
+  const handleSearch = (e) => {
+    if(e.key === 'Enter' && searchQuery.trim()){
+      navigate(`/?search=${encodeURIComponent(searchQuery.trim())}`)
+      setSearchQuery('')
+    }
   }
   useEffect(()=>{
     requestAnimationFrame(() => {
@@ -109,7 +117,14 @@ const HeaderComponents = () => {
                   <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
                 </svg>
               </span>
-              <input  placeholder='Tìm kiếm sản phẩm' className="w-full text-xs h-[40px] rounded-full border-black	 border-2 pl-10 outline-none focus:outline-none focus:ring-0  focus:border-black" type="text" />
+              <input 
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                onKeyPress={handleSearch}
+                placeholder='Tìm kiếm sản phẩm' 
+                className="w-full text-xs h-[40px] rounded-full border-black border-2 pl-10 outline-none focus:outline-none focus:ring-0 focus:border-black" 
+                type="text" 
+              />
             </div>
             <Link to="/cart" className='relative ml-2' >
               <div className='flex items-center justify-center w-full h-full'>
