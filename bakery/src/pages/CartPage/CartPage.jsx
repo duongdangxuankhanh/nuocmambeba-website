@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { IoIosLock } from "react-icons/io";
 import QuantityComponent from '../../Components/QuantityComponent';
 import ButtonComponent from '../../Components/ButtonComponent';
+import { useNavigate } from 'react-router';
 import { formatPrice } from '../../utils/format';
 import { resolveCakeImageSrc } from '../../utils/image';
 import { useDispatch } from 'react-redux';
@@ -10,6 +11,7 @@ const CartPage = () => {
   const [cart,setCart] = useState([])
   const dispatch = useDispatch()
   const [isLoading,setIsLoading] = useState(false)
+  const navigate = useNavigate()
   const getCart = ()=>{
     const carts = JSON.parse(localStorage.getItem("cartPaul")) || [];
     setCart(carts)
@@ -50,6 +52,7 @@ const CartPage = () => {
                   </div>
                   <div className='col-span-2 px-3'>
                     <h3 className='text-[13px]'>{data.nameProduct}</h3>
+                    <p className='text-[9px]'>Cỡ: 4 miếng</p>
                   </div>
                   <div className='col-span-1 justify-items-center px-3'>
                     <QuantityComponent isLoading={isLoading} setIsLoading={setIsLoading} data={data} width={90} height={30}/>
@@ -88,7 +91,7 @@ const CartPage = () => {
                 <span>Tổng đơn hàng</span>
                 <span>{formatPrice(getTotalPrice())}</span>
               </div>
-              <div className='flex justify-center opacity-50 pointer-events-none cursor-not-allowed'>
+              <div className='flex justify-center' onClick={()=>{navigate("/checkout",{state:{prices:getTotalPrice()}})}}>
                 <ButtonComponent contentButton="THANH TOÁN"/>
               </div>
             </div>

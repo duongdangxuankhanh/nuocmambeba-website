@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { useSearchParams } from 'react-router'
 import ButtonComponent from '../../Components/ButtonComponent'
 import CartProductComponent from '../../Components/CartProductComponent/CartProductComponent'
 import { useDispatch } from 'react-redux'
@@ -53,15 +52,7 @@ const trustHighlights = [
 
 const HomePage = () => {
   const [toasts, setToasts] = useState([])
-  const [searchParams] = useSearchParams()
   const dispatch = useDispatch()
-  const searchQuery = searchParams.get('search') || ''
-  
-  const filteredProducts = searchQuery 
-    ? featuredProducts.filter(p => 
-        p.nameProduct.toLowerCase().includes(searchQuery.toLowerCase())
-      )
-    : featuredProducts
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search)
@@ -160,22 +151,14 @@ const HomePage = () => {
           </div>
 
           <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-            {filteredProducts.length > 0 ? (
-              filteredProducts.map((p) => (
-                <div
-                  key={p.id}
-                  className="rounded-3xl bg-white p-4 shadow hover:shadow-xl transition"
-                >
-                  <CartProductComponent {...p} setToasts={setToasts} />
-                </div>
-              ))
-            ) : (
-              <div className="col-span-full text-center py-12">
-                <p className="text-gray-500 text-lg">
-                  {searchQuery ? `Không tìm thấy sản phẩm: "${searchQuery}"` : 'Không có sản phẩm'}
-                </p>
+            {featuredProducts.map((p) => (
+              <div
+                key={p.id}
+                className="rounded-3xl bg-white p-4 shadow hover:shadow-xl transition"
+              >
+                <CartProductComponent {...p} setToasts={setToasts} />
               </div>
-            )}
+            ))}
           </div>
         </section>
 
@@ -225,11 +208,12 @@ const HomePage = () => {
                 ))}
               </div>
 
-              <div className="flex justify-center">
+              <div className="flex justify-center relative">
+                <div className="absolute inset-0 bg-gradient-to-r from-orange-200/20 via-yellow-200/30 to-orange-200/20 rounded-full blur-3xl -z-10 scale-150" />
                 <img
-                  src="/assest/cake/sp2.png"
+                  src="logo.png"
                   alt="bottle"
-                  className="w-64 lg:w-96 object-contain rounded-xl shadow-lg bg-white p-6"
+                  className="w-80 lg:w-full max-w-2xl object-contain rounded-2xl shadow-2xl scale-110 hover:scale-125 transition-transform duration-500 border-4 border-white drop-shadow-2xl"
                 />
               </div>
 

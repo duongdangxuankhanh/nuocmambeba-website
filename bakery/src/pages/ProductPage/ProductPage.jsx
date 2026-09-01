@@ -1,11 +1,22 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router'
 import ToastComponent from '../../Components/ToastComponent';
 
 const ProductPage = () => {
   const [toasts, setToasts] = useState([]);
+  const symbol = ">"
   return (
     <div>
       <ToastComponent toasts={toasts} setToasts={setToasts}/>
+      <div className='flex justify-center items-center'>
+        <Link className='text-[11px] text-[#c4c4c4] mr-2' to ="/home">
+          Trang chủ 
+        </Link>
+        {symbol}
+        <Link className='text-[11px] ml-2'>
+          Giới thiệu
+        </Link>
+      </div>
       <section className="relative w-screen left-1/2 -translate-x-1/2 min-h-[400px] md:min-h-[500px] overflow-hidden text-white z-0">
         <img loading="lazy" decoding="async" src="/assest/banner/aboutt.png" alt="nước mắm truyền thống" className='absolute inset-0 w-full h-full object-cover' />
         <div className='absolute inset-0 bg-black/45' />
@@ -20,28 +31,26 @@ const ProductPage = () => {
         </div>
       </section>
       <div className='mx-auto max-w-7xl px-6 py-16 sm:py-20'>
-        <div className='mb-20'>
-          <h3 className='text-3xl font-semibold mb-6'>CÂU CHUYỆN VỀ NƯỚC MẮM</h3>
-          <div className='grid grid-cols-1 lg:grid-cols-2 gap-10 items-start'>
-            <div className='order-2 lg:order-1'>
-              <p className='text-gray-600 leading-7 mb-4'>
-                Từ những mẻ cá cơm tươi được đánh bắt từ biển, kết hợp cùng muối biển và ủ chượp theo phương pháp truyền thống, nước mắm được hình thành qua một quá trình tự nhiên đòi hỏi sự kiên nhẫn và chăm chút.
-              </p>
-              <p className='text-gray-600 leading-7 mb-4'>
-                Mỗi mẻ mắm là sự kết hợp giữa nguyên liệu tự nhiên, thời gian và kinh nghiệm được truyền lại qua nhiều thế hệ.
-              </p>
-              <p className='text-gray-600 leading-7 mb-4'>
-                Với chúng tôi, làm nước mắm không đơn thuần là tạo ra một loại gia vị. Đó còn là cách gìn giữ một nghề truyền thống, gìn giữ hương vị quê hương và những giá trị đã gắn bó với bao thế hệ người Việt.
-              </p>
-            </div>
-            <video
-              src="/assest/banner/video6.mp4"
-              autoPlay
-              muted
-              loop
-              className="rounded-2xl shadow-lg w-full h-auto max-h-[420px] object-cover order-1 lg:order-2"
-            />
+        <div className='grid lg:grid-cols-2 gap-10 items-center mb-20'>
+          <div>
+            <h3 className='text-3xl font-semibold mb-6'>CÂU CHUYỆN VỀ NƯỚC MẮM</h3>
+            <p className='text-gray-600 leading-7 mb-4'>
+              Từ những mẻ cá cơm tươi được đánh bắt từ biển, kết hợp cùng muối biển và ủ chượp theo phương pháp truyền thống, nước mắm được hình thành qua một quá trình tự nhiên đòi hỏi sự kiên nhẫn và chăm chút.
+            </p>
+            <p className='text-gray-600 leading-7 mb-4'>
+              Mỗi mẻ mắm là sự kết hợp giữa nguyên liệu tự nhiên, thời gian và kinh nghiệm được truyền lại qua nhiều thế hệ.
+            </p>
+            <p className='text-gray-600 leading-7 mb-4'>
+              Với chúng tôi, làm nước mắm không đơn thuần là tạo ra một loại gia vị. Đó còn là cách gìn giữ một nghề truyền thống, gìn giữ hương vị quê hương và những giá trị đã gắn bó với bao thế hệ người Việt.
+            </p>
           </div>
+          <video
+            src="/assest/banner/video6.mp4"
+            autoPlay
+            muted
+            loop
+            className="rounded-2xl shadow-lg w-full h-auto max-h-[420px] object-cover order-2 lg:order-1"
+          />
         </div>
 
         <div className='mb-20'>
